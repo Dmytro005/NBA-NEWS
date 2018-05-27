@@ -3,8 +3,9 @@
 		"*.js": "javascriptreact"
 	},
 	"editor.insertSpaces": false,
-	"editor.detectIndentation": false,
+	"editor.detectIndentation": true,
 	"prettier.useTabs": true,
 	"prettier.singleQuote": true,
+	"prettier.ignorePath": ".prettierignore",
 	"editor.formatOnSave": true
 }
