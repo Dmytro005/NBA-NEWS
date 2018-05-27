@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Layout from './HOC/Layout/layout';
-import Home from './components/home';
+import Home from './components/Home/home';
 
 class Routes extends Component {
 	render() {
