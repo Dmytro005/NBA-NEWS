@@ -1,5 +1,10 @@
 {
-  "files.associations": {
-    "*.js": "javascriptreact"
-  }
+	"files.associations": {
+		"*.js": "javascriptreact"
+	},
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"prettier.useTabs": true,
+	"prettier.singleQuote": true,
+	"editor.formatOnSave": true
 }
