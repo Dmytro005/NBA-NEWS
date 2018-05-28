@@ -1,0 +1,10 @@
+.loadMoreBtn {
+	width: 100%;
+	background-color: #2196f3;
+	box-shadow: none;
+	font-size: 18px;
+	border: none;
+	font-weight: 900;
+	padding: 10px;
+	color: #f2f2f2;
+}

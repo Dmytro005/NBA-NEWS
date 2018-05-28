@@ -1,11 +1,12 @@
 import React from 'react';
 
-import Slider from 'components/Slider/Slider';
+import NewsSlider from 'components/Slider/Slider';
+import NewsList from 'components/NewsList/NewsList';
 
 const Home = () => {
 	return (
 		<div>
-			<Slider
+			<NewsSlider
 				type="featured"
 				start={0}
 				amount={5}
@@ -13,11 +14,13 @@ const Home = () => {
 					dots: true,
 					infinite: true,
 					arrows: false,
+					autoplaySpeed: 5000,
 					slidesToShow: 1,
 					slidesToScroll: 1,
 					autoplay: true
 				}}
 			/>
+			<NewsList type="card" loadMore={true} start={3} amount={3} />
 		</div>
 	);
 };
