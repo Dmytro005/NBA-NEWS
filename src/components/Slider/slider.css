@@ -1,0 +1,41 @@
+.feaured_item {
+	position: relative;
+}
+
+.featured_item a {
+	position: absolute;
+	width: 100vw;
+	bottom: 40px;
+	text-decoration: none !important;
+	display: flex;
+}
+
+.featured_image {
+	height: 330px;
+	background-size: cover !important;
+	background-repeat: no-repeat !important;
+}
+
+.featured_dots {
+	bottom: 5px !important;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.featured_dots li button::before {
+	color: white;
+	opacity: 0.5;
+}
+
+.featured_dots li.slick-active button::before {
+	color: white !important;
+	opacity: 1;
+}
+
+.featured_caption {
+	color: white;
+	top: 0px;
+	padding: 20px;
+	width: 100%;
+	font-size: 30px;
+	font-weight: 300;
+}

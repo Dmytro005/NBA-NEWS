@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import axios from 'utils/axios';
 
+import SliderTemplates from './SliderTemplates';
+
 class Slider extends Component {
 	state = {
 		news: []
 	};
 
 	componentWillMount() {
-		axios.get('/articles?_end=5').then(({ data }) => {
-			this.setState({
-				news: [...data]
+		axios
+			.get(`/articles?_start=${this.props.start}&_end=${this.props.amount}`)
+			.then(({ data }) => {
+				this.setState({
+					news: [...data]
+				});
 			});
-		});
-	}
-
-	compo() {
-		console.log(this.state);
 	}
 
 	render() {
 		return (
-			<div>
-				{this.state.news.map((n, i) => {
-					return <h1 key={i}>{`${i + 1}. ${n.title}`}</h1>;
-				})}
-			</div>
+			<SliderTemplates
+				data={this.state.news}
+				type={this.props.type}
+				settings={this.props.settings}
+			/>
 		);
 	}
 }
