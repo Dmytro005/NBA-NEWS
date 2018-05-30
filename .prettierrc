@@ -1,0 +1,7 @@
+{
+	"useTabs": true,
+	"singleQuote": true,
+	"ignorePath": ".prettierignore",
+	"printWidth": 100,
+	"proseWrap": "never"
+}
