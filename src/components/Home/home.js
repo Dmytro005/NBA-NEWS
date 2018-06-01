@@ -2,6 +2,7 @@ import React from 'react';
 
 import NewsSlider from 'components/Slider/Slider';
 import NewsList from 'components/NewsList/NewsList';
+import VideosList from 'components/VideosList/VideosList';
 
 const Home = () => {
 	return (
@@ -21,6 +22,7 @@ const Home = () => {
 				}}
 			/>
 			<NewsList type="card" loadMore={true} start={3} amount={3} />
+			<VideosList type="card" title={true} loadMore={true} start={0} amount={3} />
 		</div>
 	);
 };

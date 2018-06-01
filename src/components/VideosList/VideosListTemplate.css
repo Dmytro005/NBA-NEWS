@@ -1,0 +1,31 @@
+.videoListItem__wrapper {
+	display: flex;
+	border-bottom: 2px solid #d5d5d5;
+	background: #fff;
+}
+
+.videoListItem__wrapper h2 {
+	font-size: 13px;
+	color: #525252;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.left {
+	background-size: cover !important;
+}
+
+.left div {
+	width: 40px;
+	height: 40px;
+	margin: 30px;
+	background-size: contain !important;
+	background-repeat: no-repeat !important;
+	background-position: center center;
+	background: url('/images/play.png');
+}
+
+.right {
+	flex-grow: 1;
+	padding: 10px;
+}
