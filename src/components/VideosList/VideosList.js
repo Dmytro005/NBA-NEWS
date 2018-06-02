@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import VideosListTemplate from './VideosListTemplate';
 import Button from 'components/Buttons/Button';
@@ -24,13 +23,19 @@ class VideosList extends Component {
 		if (this.state.teams.length < 1) {
 			await axios.get('/teams').then(({ data }) => this.setState({ teams: data }));
 		}
-		await axios
-			.get(`/videos?_start=${start}&_end=${end}`)
-			.then(({ data }) => this.setState({ videos: [...this.state.videos, ...data] }));
+		await axios.get(`/videos?_start=${start}&_end=${end}`).then(({ data }) =>
+			this.setState({
+				videos: [...this.state.videos, ...data],
+				start,
+				end
+			})
+		);
 	};
 
 	loadMore = () => {
-		// console.log(this.props.loadMore);
+		console.log('dima');
+		const end = this.state.end + this.state.amount;
+		this.request(this.state.end, end);
 	};
 
 	renderVideos = type => {
