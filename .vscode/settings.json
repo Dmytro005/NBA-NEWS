@@ -2,8 +2,6 @@
 	"files.associations": {
 		"*.js": "javascriptreact"
 	},
-	"editor.insertSpaces": false,
-	"editor.detectIndentation": true,
 	"problems.decorations.enabled": true,
 	"editor.formatOnSave": true
 }

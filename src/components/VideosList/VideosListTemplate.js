@@ -5,7 +5,6 @@ import CardInfo from 'components/CardInfo/CardInfo';
 import styles from './VideosListTemplate.css';
 
 const VideosListTemplate = props => {
-	console.log(props);
 	const { data, teams } = props;
 
 	return data && teams
