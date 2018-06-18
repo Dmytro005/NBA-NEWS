@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../articles.css';
+import styles from '../News/articles.css';
 
 const teamInfo = props => {
 	return (
