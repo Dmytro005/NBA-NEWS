@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TeamInfo from './../Elements/TeamInfo';
-import PostData from './../Elements/PostData';
+import TeamInfo from '../../Elements/TeamInfo';
+import PostData from '../../Elements/PostData';
 
 const Header = props => {
 	const teamInfoRender = team => (team ? <TeamInfo team={team} /> : null);
