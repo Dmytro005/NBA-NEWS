@@ -24,7 +24,9 @@ class NewsList extends Component {
 
 		axios
 			.get(`/articles?_start=${start}&_end=${end}`)
-			.then(({ data }) => this.setState({ items: [...this.state.items, ...data] }));
+			.then(({ data }) =>
+				this.setState({ items: [...this.state.items, ...data] })
+			);
 	};
 
 	componentWillMount() {
@@ -60,6 +62,37 @@ class NewsList extends Component {
 					</CSSTransition>
 				));
 				break;
+
+			case 'mainCard':
+				template = this.state.items.map((el, i) => (
+					<CSSTransition
+						classNames={{
+							enter: styles.newsList__wrapper,
+							enterActive: styles.newsList__wrapper_enter
+						}}
+						timeout={500}
+						key={i}
+					>
+						<div>
+							<div className={styles.newsList__cardMain}>
+								<Link
+									to={`/articles/${el.id}`}
+									className={styles.newsList__cardWrapper}
+								>
+									<img
+										src={`../images/articles/${el.image}`}
+										className={styles.newsList__cardWrapper__image}
+										alt=""
+									/>
+									<div className={styles.newsList__cardMain__data}>
+										<CardInfo {...el} teams={this.state.teams} />
+									</div>
+								</Link>
+							</div>
+						</div>
+					</CSSTransition>
+				));
+				break;
 			default:
 				break;
 		}
@@ -73,7 +106,11 @@ class NewsList extends Component {
 				<TransitionGroup component="div" className="list">
 					{this.renderNews(this.props.type)}
 				</TransitionGroup>
-				<Button type="loadMore" onLoadMore={() => this.loadMore()} text="Load more News" />
+				<Button
+					type="loadMore"
+					onLoadMore={() => this.loadMore()}
+					text="Load more News"
+				/>
 			</div>
 		);
 	}

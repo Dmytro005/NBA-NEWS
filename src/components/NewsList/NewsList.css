@@ -28,3 +28,36 @@
 	opacity: 1;
 	transform: translateX(0%);
 }
+
+.newsList__cardWrapper {
+	display: flex;
+}
+
+.newsList__cardWrapper__image {
+	object-fit: cover !important;
+	width: 100px;
+	height: 100px !important;
+	margin-right: 10px;
+}
+
+.newsList__cardMain {
+	border: 1px solid #f2f2f2;
+	background: #fff;
+	margin-top: 0;
+}
+
+.newsList__cardMain h2 {
+	font-size: 14px;
+	line-height: 21px;
+	margin: 5px 0;
+	color: #525252;
+}
+
+.newsList__cardMain a {
+	text-decoration: none;
+	flex-grow: 1;
+}
+
+.newsList__cardMain__data {
+	padding: 10px 6px 0px 5px;
+}

@@ -10,7 +10,9 @@ const CardInfo = props => {
 	};
 	return (
 		<div className={styles.cardInfo}>
-			<span className={styles.teamName}>{teamName(props.team, props.teams)}</span>
+			<span className={styles.teamName}>
+				{teamName(props.team, props.teams)}
+			</span>
 			<span className={styles.date}>
 				<FontAwesome name="clock-o" />
 				{props.date}
