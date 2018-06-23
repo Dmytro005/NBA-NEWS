@@ -3,8 +3,7 @@ import axios from 'utils/axios';
 
 import Header from './header';
 
-import styles from '../articles.css';
-
+import styles from './../../articles.css';
 class NewsArticle extends Component {
 	state = {
 		article: {},

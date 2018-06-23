@@ -6,11 +6,15 @@ import styles from './VideosListTemplate.css';
 
 const VideosListTemplate = props => {
 	const { data, teams } = props;
-
+	// console.log(data, teams);
 	return data && teams
 		? props.data.map((item, i) => {
 				return (
-					<Link to={`/videos/${item.id}`} key={i} style={{ textDecoration: 'none' }}>
+					<Link
+						to={`/videos/${item.id}`}
+						key={i}
+						style={{ textDecoration: 'none' }}
+					>
 						<div className={styles.videoListItem__wrapper}>
 							<div
 								className={styles.left}
