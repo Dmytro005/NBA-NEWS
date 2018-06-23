@@ -3,5 +3,6 @@
 		"*.js": "javascriptreact"
 	},
 	"problems.decorations.enabled": true,
-	"editor.formatOnSave": true
+	"editor.formatOnSave": true,
+	"editor.useTabStops": true
 }
