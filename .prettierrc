@@ -1,6 +1,5 @@
 {
 	"useTabs": true,
 	"singleQuote": true,
-	"ignorePath": ".prettierignore",
 	"proseWrap": "always"
 }
