@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { firebaseArticles, firebaseLooper } from 'firebaseConfig/firebase';
 
 import SliderTemplates from './SliderTemplates';
-
 class Slider extends Component {
 	state = {
 		news: []
