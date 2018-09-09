@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 
 import VideosListTemplate from './VideosListTemplate';
 import Button from 'components/Buttons/Button';
-import axios from 'utils/axios';
+import {
+	firebaseTeams,
+	firebaseVideos,
+	firebaseLooper
+} from 'firebaseConfig/firebase';
 
 import styles from './VideosList.css';
 
@@ -21,27 +25,47 @@ class VideosList extends Component {
 
 	request = async (start, end) => {
 		if (this.state.teams.length < 1) {
-			await axios.get('/teams').then(({ data }) => this.setState({ teams: data }));
+			firebaseTeams.once('value').then(snapshot => {
+				const teams = firebaseLooper(snapshot);
+				this.setState({
+					teams
+				});
+			});
 		}
-		await axios.get(`/videos?_start=${start}&_end=${end}`).then(({ data }) =>
-			this.setState({
-				videos: [...this.state.videos, ...data],
-				start,
-				end
+
+		firebaseVideos
+			.orderByChild('id')
+			.startAt(start)
+			.endAt(end)
+			.once('value')
+			.then(snapshot => {
+				const articles = firebaseLooper(snapshot);
+				this.setState({
+					videos: [...this.state.videos, ...articles],
+					start,
+					end
+				});
 			})
-		);
+			.catch(e => {
+				console.log(e);
+			});
 	};
 
 	loadMore = () => {
 		const end = this.state.end + this.state.amount;
-		this.request(this.state.end, end);
+		this.request(this.state.end + 1, end);
 	};
 
 	renderVideos = type => {
 		let template = null;
 		switch (type) {
 			case 'card':
-				template = <VideosListTemplate data={this.state.videos} teams={this.state.teams} />;
+				template = (
+					<VideosListTemplate
+						data={this.state.videos}
+						teams={this.state.teams}
+					/>
+				);
 				break;
 			default:
 				break;
@@ -59,7 +83,11 @@ class VideosList extends Component {
 
 	renderButton = () => {
 		return this.props.loadMore ? (
-			<Button type="loadMore" text="Load more videos" onLoadMore={() => this.loadMore()} />
+			<Button
+				type="loadMore"
+				text="Load more videos"
+				onLoadMore={() => this.loadMore()}
+			/>
 		) : (
 			<Button type="linkTo" text="Go to videos" linkTo="/videos" />
 		);

@@ -29,4 +29,10 @@ const firebaseLooper = snapshot => {
 	return data;
 };
 
-export { firebaseArticles, firebaseTeams, firebaseVideos, firebaseLooper };
+export {
+	firebaseArticles,
+	firebaseTeams,
+	firebaseVideos,
+	firebaseLooper,
+	firebaseDB
+};

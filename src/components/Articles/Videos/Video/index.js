@@ -4,7 +4,14 @@ import Header from './header';
 import VideosRelated from 'components/VideosList/VideosRelated/VideosRelated';
 
 import styles from './../../articles.css';
-import axios from 'utils/axios';
+
+import {
+	firebaseDB,
+	firebaseTeams,
+	firebaseVideos,
+	firebaseLooper
+} from 'firebaseConfig/firebase';
+
 class VideoArticle extends Component {
 	state = {
 		article: {},
@@ -13,28 +20,41 @@ class VideoArticle extends Component {
 		related: []
 	};
 	async componentWillMount() {
-		await axios
-			.get(`/videos?id=${this.props.match.params.id}`)
-			.then(article => {
-				axios.get(`teams?id=${article.data[0].team}`).then(team => {
-					this.setState({
-						article: article.data[0],
-						team: team.data[0]
+		firebaseDB
+			.ref(`videos/${this.props.match.params.id}`)
+			.once('value')
+			.then(snapshot => {
+				const article = snapshot.val();
+
+				firebaseTeams
+					.orderByChild('teamId')
+					.equalTo(article.team)
+					.once('value')
+					.then(snapshot => {
+						const team = firebaseLooper(snapshot)[0];
+						this.setState({
+							article,
+							team
+						});
+						this.getRelated();
 					});
-				});
-				this.getRelated();
 			});
 	}
 
 	getRelated() {
-		axios.get('/teams').then(response => {
-			const teams = response.data;
-			axios
-				.get(`/videos?q=${this.state.team.city}&_limit=6`)
-				.then(({ data }) => {
+		firebaseTeams.once('value').then(snapshot => {
+			const teams = firebaseLooper(snapshot);
+
+			firebaseVideos
+				.orderByChild('team')
+				.equalTo(this.state.article.team)
+				.limitToFirst(3)
+				.once('value')
+				.then(snapshot => {
+					const related = firebaseLooper(snapshot);
 					this.setState({
 						teams,
-						related: data
+						related
 					});
 				});
 		});
