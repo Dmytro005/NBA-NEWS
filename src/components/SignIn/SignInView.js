@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import styles from './SignIn.css';
 import FormField from 'components/FormField';
 
+const EMAIL_REGEX_PATTERN = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
 class SignIn extends Component {
 	state = {
 		registerError: null,
@@ -47,18 +49,43 @@ class SignIn extends Component {
 		const newFormData = {
 			...this.state.formData
 		};
-
 		const newElement = {
 			...newFormData[element.id]
 		};
-
 		newElement.value = element.event.target.value;
 		newFormData[element.id] = newElement;
-
+		if (element.blur) {
+			let validData = this.validate(newElement);
+			console.log(validData);
+		}
 		this.setState({
 			formData: newFormData
 		});
 	}
+
+	validate = element => {
+		let err = [true, ''];
+
+		if (element.validation.email) {
+			const valid = EMAIL_REGEX_PATTERN.test(element.value);
+			const message = `${!valid ? 'Enter the valid email' : ''}`;
+			err = !valid ? [valid, message] : err;
+		}
+
+		if (element.validation.passowrd) {
+			const valid = element.value.length >= 5;
+			const message = `${!valid ? 'This field must be greater than 5' : ''}`;
+			err = !valid ? [valid, message] : err;
+		}
+
+		if (element.validation.required) {
+			const valid = element.value.trim() !== '';
+			const message = `${!valid ? 'This field is required' : ''}`;
+			err = !valid ? [valid, message] : err;
+		}
+
+		return err;
+	};
 
 	render() {
 		return (
