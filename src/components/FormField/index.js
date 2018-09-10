@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from './FormField.css';
+
 const FormField = ({ formData, change, id }) => {
 	const renderTemplate = () => {
 		let formTemplate = null;
@@ -21,7 +23,23 @@ const FormField = ({ formData, change, id }) => {
 		return formTemplate;
 	};
 
-	return <div>{renderTemplate()}</div>;
+	const showError = () => {
+		let errorMessage = null;
+		if (formData.validation && !formData.valid) {
+			errorMessage = (
+				<div className={styles.labelError}>{formData.validationMessage}</div>
+			);
+		}
+
+		return errorMessage;
+	};
+
+	return (
+		<div>
+			{renderTemplate()}
+			{showError()}
+		</div>
+	);
 };
 
 export default FormField;
