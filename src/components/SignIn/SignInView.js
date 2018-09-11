@@ -8,7 +8,7 @@ const EMAIL_REGEX_PATTERN = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 class SignIn extends Component {
 	state = {
 		registerError: null,
-		oading: false,
+		loading: false,
 		formData: {
 			email: {
 				element: 'input',
@@ -93,10 +93,50 @@ class SignIn extends Component {
 		return err;
 	};
 
+	submitForm = (event, type) => {
+		let dataToSubmit = {};
+		let formIsValid = true;
+
+		for (let key in this.state.formData) {
+			dataToSubmit[key] = this.state.formData[key].value;
+		}
+
+		for (let key in this.state.formData) {
+			formIsValid = this.state.formData[key].valid && formIsValid;
+		}
+
+		if (formIsValid) {
+			this.setState({
+				loading: true,
+				registerError: ''
+			});
+
+			if (type) {
+				console.log('Log in');
+			} else {
+				console.log('Register');
+			}
+		}
+	};
+
+	submitButtons = () =>
+		this.state.loading ? (
+			'loading ...'
+		) : (
+			<div>
+				<button type="button" onClick={e => this.submitForm(e, false)}>
+					Register now
+				</button>
+				<button type="button" onClick={e => this.submitForm(e, true)}>
+					Log in
+				</button>
+			</div>
+		);
+
 	render() {
 		return (
 			<div className={styles.logContainer}>
-				<form>
+				<form onSubmit={e => e.preventDefault()}>
 					<h2>Register / Log in</h2>
 					<FormField
 						id={'email'}
@@ -108,6 +148,8 @@ class SignIn extends Component {
 						formData={this.state.formData.password}
 						change={element => this.updateForm(element)}
 					/>
+
+					{this.submitButtons()}
 				</form>
 			</div>
 		);
