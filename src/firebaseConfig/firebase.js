@@ -34,5 +34,6 @@ export {
 	firebaseTeams,
 	firebaseVideos,
 	firebaseLooper,
-	firebaseDB
+	firebaseDB,
+	firebase
 };

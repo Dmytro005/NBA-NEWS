@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import styles from './SignIn.css';
 import FormField from 'components/FormField';
 
+import { firebase } from 'firebaseConfig/firebase';
+
 const EMAIL_REGEX_PATTERN = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
 class SignIn extends Component {
@@ -112,9 +114,34 @@ class SignIn extends Component {
 			});
 
 			if (type) {
-				console.log('Log in');
+				firebase
+					.auth()
+					.signInWithEmailAndPassword(dataToSubmit.email, dataToSubmit.password)
+					.then(() => {
+						this.props.history.push('/');
+					})
+					.catch(error => {
+						this.setState({
+							loading: false,
+							registerError: error.message
+						});
+					});
 			} else {
-				console.log('Register');
+				firebase
+					.auth()
+					.createUserWithEmailAndPassword(
+						dataToSubmit.email,
+						dataToSubmit.password
+					)
+					.then(() => {
+						this.props.history.push('/');
+					})
+					.catch(error => {
+						this.setState({
+							loading: false,
+							registerError: error.message
+						});
+					});
 			}
 		}
 	};
