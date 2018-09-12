@@ -9,6 +9,7 @@ import VideoArticle from 'components/Articles/Videos/Video/index';
 import NewsView from 'components/NewsView/NewsView';
 import VideosView from 'components/VideosView/VideosView';
 import SignInView from 'components/SignIn/SignInView';
+import DashboardView from 'components/Dashboard/DashboardView';
 
 const Routes = props => {
 	return (
@@ -20,6 +21,7 @@ const Routes = props => {
 				<Route path="/news" exact component={NewsView} />
 				<Route path="/videos" exact component={VideosView} />
 				<Route path="/sign-in" exact component={SignInView} />
+				<Route path="/dashboard" exact component={DashboardView} />
 			</Switch>
 		</Layout>
 	);

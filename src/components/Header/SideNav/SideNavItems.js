@@ -31,6 +31,13 @@ const SideNavItems = props => {
 		},
 		{
 			type: styles.option,
+			icon: 'dashboard',
+			text: 'Dashboard',
+			link: '/dashboard',
+			login: true
+		},
+		{
+			type: styles.option,
 			icon: 'sign-in',
 			text: 'Sign-in',
 			link: '/sign-in',
@@ -56,7 +63,6 @@ const SideNavItems = props => {
 
 	const restricted = (item, i) => {
 		let template = null;
-		console.log(props.user);
 
 		if (props.user === null && !item.login) {
 			template = element(item, i);
@@ -82,9 +88,10 @@ const SideNavItems = props => {
 					</div>
 				);
 			} else {
-				template = template(item, i);
+				template = element(item, i);
 			}
 		}
+
 		return template;
 	};
 
