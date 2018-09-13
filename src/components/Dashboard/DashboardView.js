@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
+import FormField from 'components/FormField';
 import styles from './Dashboard.css';
 
-import FormField from 'components/FormField';
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertFromRaw, converToRaw } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
 
 class Dashboard extends Component {
 	validate = element => {
@@ -18,6 +21,7 @@ class Dashboard extends Component {
 	};
 
 	state = {
+		editorState: EditorState.createEmpty(),
 		postError: null,
 		loading: false,
 		formData: {
@@ -91,12 +95,24 @@ class Dashboard extends Component {
 		}
 
 		if (formIsValid) {
-			console.log('post data');
+			console.log();
 		} else {
 			this.setState({
 				postError: 'Form isn`t valid, please check the fields'
 			});
 		}
+	};
+
+	onEditorStateChange = editorState => {
+		const contentState = editorState.getCurrentContent();
+		// const rawState = converToRaw(contentState);
+		const html = stateToHTML(contentState);
+
+		console.log(html);
+
+		this.setState({
+			editorState
+		});
 	};
 
 	submitButtons = () =>
@@ -132,6 +148,14 @@ class Dashboard extends Component {
 						formData={this.state.formData.title}
 						change={element => this.updateForm(element)}
 					/>
+
+					<Editor
+						editorState={this.state.editorState}
+						wrapperClassName="myEditor-wrapper"
+						editorClassName="myEditor-editor"
+						onEditorStateChange={this.onEditorStateChange}
+					/>
+
 					{this.showError()}
 					{this.submitButtons()}
 				</form>
