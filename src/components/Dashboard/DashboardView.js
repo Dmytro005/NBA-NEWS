@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { firebaseTeams } from 'firebaseConfig/firebase';
 
 import FormField from 'components/FormField';
+import FileUplaoder from 'components/FileUploader/FileUploader';
 import styles from './Dashboard.css';
 
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertFromRaw, converToRaw } from 'draft-js';
+// import { EditorState, convertFromRaw, converToRaw } from 'draft-js';
+import { EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 
 class Dashboard extends Component {
@@ -62,6 +64,11 @@ class Dashboard extends Component {
 				valid: true,
 				touched: false,
 				validationMessage: ''
+			},
+			image: {
+				element: 'image',
+				value: '',
+				valid: true
 			}
 		}
 	};
@@ -186,11 +193,24 @@ class Dashboard extends Component {
 			''
 		);
 
+	storeFilename = filename => {
+		console.log('sirefilename', filename);
+
+		this.updateForm({ id: 'image' }, filename);
+	};
+
 	render() {
 		return (
 			<div className={styles.postContainer}>
 				<form onSubmit={this.submitForm}>
 					<h2>Add Post</h2>
+
+					<FileUplaoder
+						filename={filename => {
+							this.storeFilename(filename);
+						}}
+					/>
+
 					<FormField
 						id={'author'}
 						formData={this.state.formData.author}
