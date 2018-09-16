@@ -43,6 +43,8 @@ class NewsList extends Component {
 			.once('value')
 			.then(snapshot => {
 				const articles = firebaseLooper(snapshot);
+				console.log(articles);
+
 				this.setState({
 					items: [...this.state.items, ...articles],
 					start,

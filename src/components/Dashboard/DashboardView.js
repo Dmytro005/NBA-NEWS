@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { firebaseTeams } from 'firebaseConfig/firebase';
+import {
+	firebaseTeams,
+	firebaseArticles,
+	firebase
+} from 'firebaseConfig/firebase';
 
 import FormField from 'components/FormField';
 import FileUplaoder from 'components/FileUploader/FileUploader';
@@ -51,9 +55,9 @@ class Dashboard extends Component {
 				value: '',
 				valid: true
 			},
-			teams: {
+			team: {
 				element: 'select',
-				value: '',
+				value: 1,
 				config: {
 					name: 'team_input',
 					options: []
@@ -79,20 +83,20 @@ class Dashboard extends Component {
 
 	loadTeams = () => {
 		firebaseTeams.once('value').then(snapshot => {
-			let teams = [];
+			let team = [];
 
 			snapshot.forEach(childSnapshot => {
-				teams.push({
+				team.push({
 					id: childSnapshot.val().teamId,
 					name: childSnapshot.val().city
 				});
 			});
 
 			const newFormdata = { ...this.state.formData };
-			const newElement = { ...newFormdata['teams'] };
+			const newElement = { ...newFormdata['team'] };
 
-			newElement.config.options = teams;
-			newFormdata['teams'] = newElement;
+			newElement.config.options = team;
+			newFormdata['team'] = newElement;
 
 			this.setState({
 				formdata: newFormdata
@@ -154,9 +158,40 @@ class Dashboard extends Component {
 
 		if (formIsValid) {
 			this.setState({
-				postError: null
+				postError: '',
+				loading: true
 			});
-			console.log(dataToSubmit);
+
+			firebaseTeams
+				.orderByChild('id')
+				.limitToLast(1)
+				.once('value')
+				.then(snapshot => {
+					let articleId = null;
+
+					snapshot.forEach(childSnapshot => {
+						articleId = snapshot.val().id;
+					});
+
+					dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP;
+					dataToSubmit['id'] = 0;
+					dataToSubmit['team'] = parseInt(dataToSubmit['team']);
+
+					console.log(dataToSubmit);
+
+					firebaseArticles
+						.push(dataToSubmit)
+						.then(article => {
+							this.props.history.push(`/articles/${article.key}`);
+						})
+						.catch(e => {
+							this.setState({
+								postError: e.message
+							});
+						});
+				});
+
+			console.log();
 		} else {
 			this.setState({
 				postError: 'Form isn`t valid, please check the fields'
@@ -230,8 +265,8 @@ class Dashboard extends Component {
 					/>
 
 					<FormField
-						id={'teams'}
-						formData={this.state.formData.teams}
+						id={'team'}
+						formData={this.state.formData.team}
 						change={element => this.updateForm(element)}
 					/>
 

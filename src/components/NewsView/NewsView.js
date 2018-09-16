@@ -21,7 +21,7 @@ class NewsView extends Component {
 						autoplay: true
 					}}
 				/>
-				<NewsList type="mainCard" loadMore={false} start={1} amount={6} />
+				<NewsList type="mainCard" loadMore={false} start={0} amount={6} />
 			</div>
 		);
 	}

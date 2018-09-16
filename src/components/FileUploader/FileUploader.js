@@ -28,9 +28,10 @@ class Uploader extends Component {
 			.ref('images')
 			.child(filename)
 			.getDownloadURL()
-			.then(url => this.setState({ imageURL: url }));
-
-		this.props.filename(filename);
+			.then(url => {
+				this.props.filename(url);
+				this.setState({ imageURL: url });
+			});
 	};
 
 	render() {
