@@ -11,17 +11,63 @@ import VideosView from 'components/VideosView/VideosView';
 import SignInView from 'components/SignIn/SignInView';
 import DashboardView from 'components/Dashboard/DashboardView';
 
+import PrivatRoute from 'components/AuthRoutes/privatRoutes';
+import PublicRoute from 'components/AuthRoutes/publicRoutes';
+
 const Routes = props => {
 	return (
 		<Layout user={props.user}>
 			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/articles/:id" exact component={NewsArticle} />
-				<Route path="/videos/:id" exact component={VideoArticle} />
-				<Route path="/news" exact component={NewsView} />
-				<Route path="/videos" exact component={VideosView} />
-				<Route path="/sign-in" exact component={SignInView} />
-				<Route path="/dashboard" exact component={DashboardView} />
+				<PublicRoute
+					{...props}
+					restricted={false}
+					path="/"
+					exact
+					component={Home}
+				/>
+				<PublicRoute
+					{...props}
+					restricted={false}
+					path="/articles/:id"
+					exact
+					component={NewsArticle}
+				/>
+				<PublicRoute
+					{...props}
+					restricted={false}
+					path="/news"
+					exact
+					component={NewsView}
+				/>
+				<PublicRoute
+					{...props}
+					restricted={false}
+					path="/videos/:id"
+					exact
+					component={VideoArticle}
+				/>
+
+				<PublicRoute
+					{...props}
+					restricted={false}
+					path="/videos"
+					exact
+					component={VideosView}
+				/>
+				<PublicRoute
+					{...props}
+					restricted={true}
+					path="/sign-in"
+					exact
+					component={SignInView}
+				/>
+
+				<PrivatRoute
+					{...props}
+					path="/dashboard"
+					exact
+					component={DashboardView}
+				/>
 			</Switch>
 		</Layout>
 	);
