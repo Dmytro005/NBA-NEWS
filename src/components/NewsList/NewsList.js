@@ -103,7 +103,7 @@ class NewsList extends Component {
 										className={styles.newsList__cardWrapper}
 									>
 										<img
-											src={`../images/articles/${el.image}`}
+											src={`${el.image}`}
 											className={styles.newsList__cardWrapper__image}
 											alt=""
 										/>

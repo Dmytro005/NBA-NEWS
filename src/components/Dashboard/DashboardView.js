@@ -177,8 +177,6 @@ class Dashboard extends Component {
 					dataToSubmit['id'] = 0;
 					dataToSubmit['team'] = parseInt(dataToSubmit['team']);
 
-					console.log(dataToSubmit);
-
 					firebaseArticles
 						.push(dataToSubmit)
 						.then(article => {
