@@ -6,7 +6,6 @@ import styles from './VideosListTemplate.css';
 
 const VideosListTemplate = props => {
 	const { data, teams } = props;
-	// console.log(data, teams);
 	return data && teams
 		? props.data.map((item, i) => {
 				return (

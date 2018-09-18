@@ -162,7 +162,7 @@ class Dashboard extends Component {
 				loading: true
 			});
 
-			firebaseTeams
+			firebaseArticles
 				.orderByChild('id')
 				.limitToLast(1)
 				.once('value')
@@ -170,12 +170,12 @@ class Dashboard extends Component {
 					let articleId = null;
 
 					snapshot.forEach(childSnapshot => {
-						articleId = snapshot.val().id;
+						articleId = childSnapshot.val().id;
 					});
 
 					dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP;
-					dataToSubmit['id'] = 0;
-					dataToSubmit['team'] = parseInt(dataToSubmit['team']);
+					dataToSubmit['id'] = articleId + 1;
+					dataToSubmit['team'] = parseInt(dataToSubmit['team'], 10);
 
 					firebaseArticles
 						.push(dataToSubmit)
@@ -188,8 +188,6 @@ class Dashboard extends Component {
 							});
 						});
 				});
-
-			console.log();
 		} else {
 			this.setState({
 				postError: 'Form isn`t valid, please check the fields'
@@ -227,8 +225,6 @@ class Dashboard extends Component {
 		);
 
 	storeFilename = filename => {
-		console.log('sirefilename', filename);
-
 		this.updateForm({ id: 'image' }, filename);
 	};
 
